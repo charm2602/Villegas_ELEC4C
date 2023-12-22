@@ -30,4 +30,3 @@ Route::middleware([
         return view('dashboard', compact('users'));
     })->name('dashboard');
 });
-
