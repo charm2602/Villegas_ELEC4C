@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\FunctionController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,13 +41,13 @@ class CategoryController extends FunctionController
     }
 
     public function update(Request $request, $id) {
-        $request->validate([
+       $update = $request->validate([
             'category_name' => 'required|max:255'
         ]);
 
         $imagePath = null;
         if ($request->hasFile('category_img')) {
-            $imagePath = $request->file('category_img')->storeAs('category_images', $request->file('category_img')->getClientOriginalName(), 'public');
+            $imagePath = $request->file('category_img')->storeAs('category_img', $request->file('category_img')->getClientOriginalName(), 'public');
         } else {
             $imagePath = FunctionController::find($id)->category_img;
         }
