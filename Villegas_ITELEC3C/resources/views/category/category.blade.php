@@ -29,7 +29,7 @@
                         @foreach ($categories as $category)
                         <tr>
                             <td>{{ $categories->firstItem()+$loop->index }}</td>
-                            <td><img width="100" height="100" alt={{ $category->category_img }} src="{{ asset('storage/' . $category->category_img) }}" /></td>
+                            <td><img width="100" height="100" alt="{{ $category->category_img }}" src="{{ asset('storage/' . $category->category_img) }}" /></td>
                             <td>{{ $category->category_name }}</td>
                             <td>{{ $category->user->name }}</td>
                             <td>{{ $category->created_at->diffForHumans() }}</td>

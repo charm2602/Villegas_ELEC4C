@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\FunctionController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +40,7 @@ class CategoryController extends FunctionController
     }
 
     public function update(Request $request, $id) {
-       $update = $request->validate([
+      $request->validate([
             'category_name' => 'required|max:255'
         ]);
 
@@ -54,13 +53,13 @@ class CategoryController extends FunctionController
 
         FunctionController::find($id)->update([
             'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
             'category_img' => $imagePath,
-            'user_id' => Auth::user()->id
         ]);
         return Redirect()->route('AllCat')->with('success', 'Updated successfully');
     }
 
-    public function delete ($id) {
+    public function delete($id) {
         FunctionController::find($id)->delete();
         return Redirect()->back()->with('success', 'category deleted');
     }
