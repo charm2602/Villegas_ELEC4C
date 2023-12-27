@@ -21,8 +21,10 @@
                             <table class="min-w-full table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="px-4 py-2">#</th>
-                                        <th class="px-4 py-2">Name</th>
+                                        <th class="px-4 py-2">ID</th>
+                                        <th class="px-4 py-2">Category Name</th>
+                                        <th class="px-4 py-2">User ID</th>
+                                        <th class="px-4 py-2">Image</th>
                                         <th class="px-4 py-2">Created At</th>
                                         <th class="px-4 py-2">Action</th>
                                     </tr>
@@ -32,6 +34,11 @@
                                         <tr>
                                             <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                             <td>{{ $category->category_name }}</td>
+                                            <td>{{ $category->user->id }}</td>
+                                            <td>
+                                                <img style="height: 100px; width: 100px;" src="{{ asset('storage/' . $category->category_img) }}" alt="Category Image">
+                                            </td>
+                                            
                                             <td>{{ $category->created_at->diffForHumans() }}</td>
                                             <td>
                                                 <a href="{{ url('category/edit/' . $category->id) }}" class="btn btn-info btn-sm">Edit</a>
@@ -66,8 +73,8 @@
 
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Image</label>
-                                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" id="image">
-                                    @error('image')
+                                    <input type="file" name="category_img" class="form-control @error('category_img') is-invalid @enderror" id="image">
+                                    @error('category_img')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

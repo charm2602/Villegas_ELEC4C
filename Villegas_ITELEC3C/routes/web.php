@@ -38,3 +38,4 @@ Route::post('/category/create', [CategoryController::class, 'create'])->name('Cr
 Route::get('/category/edit/{id}', [CategoryController::class, 'edit']);
 Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('update');
 Route::get('/category/delete/{id}', [CategoryController::class, 'delete']);
+Route::delete('/category/delete/{id}', [CategoryController::class, 'delete'])->name('delete');

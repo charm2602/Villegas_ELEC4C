@@ -18,22 +18,28 @@ class CategoryController extends Controller
         return view('admin.category.category', compact('categories'));
     }
 
-    public function create(Request $request) {
-        $validated =  $request->validate([
-            'category_name' => 'required|unique:categories|max:255'
-        ]);
+   public function create(Request $request) {
+    $validated = $request->validate([
+        'category_name' => 'required|unique:categories|max:255',
+        'category_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $imagePath = $request->file('category_img')->storeAs('category_images', $request->file('category_img')->getClientOriginalName(), 'public');
 
-        Category::create([
+    $imagePath = $request->file('category_img')->store('images/categories', 'public');
+
+        // Create a new category in the database
+        $category = new Category([
             'category_name' => $request->category_name,
-            'category_img' => $imagePath,
             'user_id' => Auth::user()->id,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'category_img' => $imagePath,
         ]);
-        return Redirect()->back()->with('success', 'category inserted');
-    }
 
+        $category->save();
+
+        return redirect()->back()->with('success', 'Category Inserted Successfully');
+    
+}
     public function edit($id) {
         $categories = Category::find($id);
         return view('admin.category.edit', compact('categories'));
