@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class CategoryController extends Category
+class CategoryController extends Controller
 {
     
     public function index() {
@@ -39,7 +39,7 @@ class CategoryController extends Category
         return view('admin.category.edit', compact('categories'));
     }
 
-   /* public function update(Request $request, $id) {
+    public function update(Request $request, $id) {
       $request->validate([
             'category_name' => 'required|max:255'
         ]);
@@ -48,10 +48,10 @@ class CategoryController extends Category
         if ($request->hasFile('category_img')) {
             $imagePath = $request->file('category_img')->storeAs('category_img', $request->file('category_img')->getClientOriginalName(), 'public');
         } else {
-            $imagePath = FunctionController::find($id)->category_img;
+            $imagePath = Category::find($id)->category_img;
         }
 
-        FunctionController::find($id)->update([
+        Category::find($id)->update([
             'category_name' => $request->category_name,
             'user_id' => Auth::user()->id,
             'category_img' => $imagePath,
@@ -60,7 +60,7 @@ class CategoryController extends Category
     } 
 
     public function delete($id) {
-        FunctionController::find($id)->delete();
+        Category::find($id)->delete();
         return Redirect()->back()->with('success', 'category deleted');
-    } */
+    } 
 }
