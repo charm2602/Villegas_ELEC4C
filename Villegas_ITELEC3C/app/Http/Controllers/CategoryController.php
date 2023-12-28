@@ -62,7 +62,7 @@ class CategoryController extends Controller
             'user_id' => Auth::user()->id,
             'category_img' => $imagePath,
         ]);
-        return Redirect()->route('AllCat')->with('success', 'Updated successfully');
+        return Redirect()->route('index')->with('success', 'Updated successfully');
     } 
 
     public function delete($id) {
